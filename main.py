@@ -1,3 +1,4 @@
+
 #My variant is 3
 RED = '\u001b[41m'
 BLUE = '\u001b[44m'
@@ -9,11 +10,20 @@ BLUE:'\u001b[44m',
 WHITE:'\u001b[47m',
 END:'\u001b[0m'}#Не знаю, зачем существует этот словарь
 
+#-----Задание 1:-----
+DrowFlag()
+#-----Задание 2. Если воспользоваться функцией для задания 3(но узор не повторяется):-----
+#drowPattern_ByFunction()
 
+#-----Задание 2. просто задание 2:-----
+#drowPattern_Repiteldy()
+
+#-----Задание 3:-----
+#drowFunction()
 def DrowFlag():
     class ColorStrip:
         ENDCOLOR = '\u001b[0m'
-        WIDTH = 7
+        WIDTH = 6
         def __init__(self, hight: int , color: str) -> None:
             self.hight = hight
             self.color = color
@@ -23,21 +33,123 @@ def DrowFlag():
             for i in range(me.hight):
                 resultstring += f'{me.color}{" "*me.WIDTH}{me.ENDCOLOR}\n' 
             
-            return resultstring
+            return resultstring  
     HIGHT  = 1
     #stp = strip
     redstp = ColorStrip(HIGHT, Colors[RED])
     whitestp = ColorStrip(HIGHT, Colors[WHITE])
     bluestp = ColorStrip(HIGHT, Colors[BLUE])
     print(f'{redstp}{whitestp}{bluestp}')
+class Point:
+    def __init__(self,x,y,color):
+        self.x = x
+        self.y = y
+        self.color = color
+    def setColor(self, color):
+        self.color = color
+    def showColor(self):
+        return self.color
+    def showPosition(self):
+        return (self.x, self.y)
+class PointsField:#Поле точек будет квадратным!
+
+
+    basecolor = Colors[END]
+    def __init__(self,sidesize,spacescount=4):
+        self.spacescount = spacescount
+        massive = []
+        self.sidesize = sidesize
+        for x in range(sidesize):
+            massive.append([])
+            for y in range(sidesize):
+                massive[x].append(Point(x,y,self.basecolor))
+        self.pointsmassive = massive
+
+    def setpointcolor(self,x,y, color):
+            self.pointsmassive[round(x)][round(y)].setColor(color)
+    def print(self):
+        for deltay in range(self.sidesize):
+            y = self.sidesize - deltay -1
+            l=""+END
+            for x in range(self.sidesize):
+                l+= str(self.pointsmassive[x][y].showColor()) + " "*self.spacescount+END+""
+            print(l)
+        print()
+    def printwithcoordinate(self):
+        for deltay in range(self.sidesize):
+           y = self.sidesize - deltay -1
+           l=str(y)+END
+           for x in range(self.sidesize):
+               l+= str(self.pointsmassive[x][y].showColor()) + " "*self.spacescount+END+""
+           print(l)
+        n= ''
+        for b in range(self.sidesize):
+            n+= f"  {b%100//10}{b%10}"
+        print(n)
+
+
+    
+
+    def drowlinebyrule(self, function):
+        for x in [i/10 for i in range(1,(self.sidesize-1)*10)]:
+            funcres = function(x)
+            if (0<= round(funcres)<self.sidesize) and (0<= round(x) <self.sidesize):
+                self.setpointcolor(x,funcres , Colors[WHITE])   
 
 
 
 
 
-DrowFlag()
+ #Задание 2. Если воспользоваться функцией для задания 3(но узор не повторяется)
+def drowPattern_ByFunction():
+    hight = 30
+    field = PointsField(hight,1)
+    field.drowlinebyrule(lambda x:6+abs((x-hight)//2))
+    field.drowlinebyrule(lambda x:20-abs((x-hight)//2))
+    field.print()
+#Задание 2. просто задание 2
+def drowPattern_Repiteldy():
+    countofpatterns = 5#Количество узоров 
+    _squresize=squresize=14#размер поля с узорами
+    stepper = 0
+    for i in range(squresize//2):
+        odd= False
+        stepper+=1
+        resultline=(stepper)*" " +Colors[WHITE]+" "+Colors[END]+''
+        _squresize-=1
+        approuchstepper = _squresize-stepper
+        for b in range(countofpatterns*3):
+           resultline+=(approuchstepper)*" " +Colors[WHITE]+" "+Colors[END]+''
+           approuchstepper= squresize - approuchstepper-2
+        print(resultline)
+    _squresize=squresize=14#размер поля с узорами
+    stepper = squresize//2+1
+    for i in range(squresize//2):
+        stepper-=1
+        resultline=(stepper)*" " +Colors[WHITE]+" "+Colors[END]+''
+        approuchstepper = _squresize-stepper*2
+        for b in range(countofpatterns*3):
+           resultline+=(approuchstepper)*" " +Colors[WHITE]+" "+Colors[END]+''
+           approuchstepper= squresize - approuchstepper-2
+        print(resultline)
+#Задание 3
+def drowFunction():
+    hight = 30
+    field = PointsField(hight,1)
+    field.printwithcoordinate(lambda x:2*x)
+    field.print()
 
 
+
+
+
+    
+    
+                
+                
+
+
+        
 
 
 
