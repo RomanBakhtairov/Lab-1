@@ -13,7 +13,7 @@ END:'\u001b[0m'}#Не знаю, зачем существует этот сло�
 
 
 
-def DrowFlag():
+def Task_1():
     class ColorStrip:
         ENDCOLOR = '\u001b[0m'
         WIDTH = 6
@@ -34,7 +34,7 @@ def DrowFlag():
     bluestp = ColorStrip(HIGHT, Colors[BLUE])
     print(f'{redstp}{whitestp}{bluestp}')
 #Задание 2. просто задание 2
-def drowPattern_Repiteldy():
+def Task_2final():
     countofpatterns = 5#Количество узоров 
     _squresize=squresize=14#размер поля с узорами
     stepper = 0
@@ -113,35 +113,49 @@ class PointsField:#Поле точек будет квадратным!
 
 
  #Задание 2. Если воспользоваться функцией для задания 3(но узор не повторяется)
-def drowPattern_ByFunction():
+def Task_2_interestingtest():
     hight = 30
     field = PointsField(hight,1)
     field.drowlinebyrule(lambda x:abs((x-hight//2)))
     field.drowlinebyrule(lambda x:15-abs((x-hight//2)))
     field.print()
 #Задание 3
-def drowFunction():
+def Task_3():
     hight = 25
     field = PointsField(hight,4)
     field.drowlinebyrule(lambda x:2*x)
     field.printwithcoordinate()
-
-
+#задание 4
+def Task_4():
+    evenSum = 0
+    unevenSum = 0
+    fl = open('sequence.txt')
+    text = fl.read().split('\n')
+    for linenum in range(len(text)):
+        if linenum%2 == 0:
+            evenSum+= abs(float(text[linenum]))
+        else:
+            unevenSum+= abs(float(text[linenum]))
+    print(f'сумма чисел на чётных:{evenSum} и нечётных { unevenSum} позициях' ) 
+    
+    fl.close()
+        
 
 
 
 
 #-----Задание 1:-----
-#DrowFlag()
+#Task_1()
 #-----Задание 2. Если воспользоваться функцией для задания 3(но узор не повторяется):-----
-#drowPattern_ByFunction()
+#Task_2_interestingtest()
 
 #-----Задание 2. просто задание 2:-----
-#drowPattern_Repiteldy()
+#Task_2final()
 
 #-----Задание 3:-----
-#drowFunction()
-
+#Task_3()
+#задание 4
+#Task_4()
 
     
     
