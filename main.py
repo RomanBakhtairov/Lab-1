@@ -9,7 +9,7 @@ BLUE:'\u001b[44m',
 WHITE:'\u001b[47m',
 END:'\u001b[0m'}#Не знаю, зачем существует этот словарь
 
-#Все функции находятся в самом низу(вариант)
+#Все функции находятся в самом низу(вариант 3)
 
 
 
@@ -20,12 +20,12 @@ def Task_1():
         def __init__(self, hight: int , color: str) -> None:
             self.hight = hight
             self.color = color
+
         def __str__(self) -> str:
             resultstring = ''
             me = self
             for i in range(me.hight):
                 resultstring += f'{me.color}{" "*me.WIDTH}{me.ENDCOLOR}\n' 
-            
             return resultstring  
     HIGHT  = 1
     #stp = strip
@@ -34,12 +34,11 @@ def Task_1():
     bluestp = ColorStrip(HIGHT, Colors[BLUE])
     print(f'{redstp}{whitestp}{bluestp}')
 #Задание 2. просто задание 2
-def Task_2final():
-    countofpatterns = 5#Количество узоров 
-    _squresize=squresize=14#размер поля с узорами
+def Task_2final(patternscount = 14, size = 5):
+    countofpatterns = size#Количество узоров 
+    _squresize=squresize=patternscount#размер поля с узорами
     stepper = 0
     for i in range(squresize//2):
-        odd= False
         stepper+=1
         resultline=(stepper)*" " +Colors[WHITE]+" "+Colors[END]+''
         _squresize-=1
@@ -120,10 +119,10 @@ def Task_2_interestingtest():
     field.drowlinebyrule(lambda x:15-abs((x-hight//2)))
     field.print()
 #Задание 3
-def Task_3():
+def Task_3(function = lambda x:2*x):
     hight = 25
     field = PointsField(hight,4)
-    field.drowlinebyrule(lambda x:2*x)
+    field.drowlinebyrule(function)
     field.printwithcoordinate()
 #задание 4
 def Task_4():
@@ -136,7 +135,7 @@ def Task_4():
             evenSum+= abs(float(text[linenum]))
         else:
             unevenSum+= abs(float(text[linenum]))
-    print(f'сумма чисел на чётных:{evenSum} и нечётных { unevenSum} позициях' ) 
+    print(f'сумма чисел на чётных:{evenSum} и нечётных {unevenSum} позициях' ) 
     
     fl.close()
         
